@@ -4,14 +4,11 @@
       <h1>My Friends</h1>
     </header>
     <ul>
-      <friend-contact name="Manuel Lorenz" 
-                      phone-number="125401540115" 
-                      email-address="manual@localhos.com.br"
-                      if-favorite="1"></friend-contact>
-      <friend-contact name="julie Lorenz" 
-                      phone-number="1540155 451" 
-                      email-address="julie@localhos.com.br"
-                      if-favorite="0"></friend-contact>
+      <friend-contact v-for="friend in friends" v-bind:key="friend.id"
+                      :name="friend.name" 
+                      :phone-number="friend.phone" 
+                      :email-address="friend.email"
+                      v-bind:is-favorite="true"></friend-contact>
     </ul>
   </section>
 </template>
@@ -22,13 +19,13 @@ export default {
     return {
       friends: [
         {
-          id: "manuel",
+          id: "1",
           name: "Manuel Lorenz",
           phone: "0123 45678 90",
           email: "manuel@localhost.com",
         },
         {
-          id: "julie",
+          id: "2",
           name: "Julie Jones",
           phone: "0987 654421 21",
           email: "julie@localhost.com",
