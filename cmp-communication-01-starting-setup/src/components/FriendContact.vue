@@ -1,6 +1,6 @@
 <template>
   <li>
-    <h2>{{ name }} {{ friendIsFavorite ? '()' : ''}}</h2>
+    <h2>{{ name }} {{ isFavorite ? '(Favorite)' : ''}}</h2>
     <button @click="toggleDetails">{{ detailsAreVisible ? 'Hide' : 'Show' }} Details</button>
       <button @click="toggleFavorite">Toggle Favorite</button>
     <ul v-if="detailsAreVisible">
@@ -25,6 +25,10 @@ export default {
   //   'isFavorite'
   // ],
   props:{
+    id:{
+      type: String,
+      required: true
+    },
     name: {
       type: String,
       required: true
@@ -37,10 +41,22 @@ export default {
       default: false
     }
   },
+  //emits:['toogle-favorite'],
+  emits:{
+    'toogle-favorite':function(id){
+      if(id){
+        return true;
+      }else{
+        
+        console.warn('Id is missing');
+        return false;
+
+      }
+    } //Dessa forma fica claro que esse componente emite um evento que deve ser tratado por uma função
+  },
   data() {
     return {
-      detailsAreVisible: false,
-      friendIsFavorite: this.isFavorite
+      detailsAreVisible: false
     };
   },
   methods: {
@@ -48,7 +64,7 @@ export default {
       this.detailsAreVisible = !this.detailsAreVisible;
     },
     toggleFavorite(){
-      this.friendIsFavorite = !this.friendIsFavorite
+      this.$emit('toogle-favorite', this.id);
     }
   }
 };

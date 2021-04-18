@@ -4,11 +4,16 @@
       <h1>My Friends</h1>
     </header>
     <ul>
-      <friend-contact v-for="friend in friends" v-bind:key="friend.id"
+      <friend-contact v-for="friend in friends" 
+                      v-bind:key="friend.id"
+                      v-bind:id="friend.id"
                       :name="friend.name" 
                       :phone-number="friend.phone" 
                       :email-address="friend.email"
-                      v-bind:is-favorite="true"></friend-contact>
+                      v-bind:is-favorite="friend.isFavorite"
+                      @toogle-favorite="toogleFavoriteStatus">
+
+      </friend-contact>
     </ul>
   </section>
 </template>
@@ -32,7 +37,14 @@ export default {
         },
       ],
     };
-  },
+  },methods:{
+    toogleFavoriteStatus(friendId){
+      const friendIdentifier = this.friends.find(friend => friend.id === friendId);
+
+      friendIdentifier.isFavorite = !friendIdentifier.isFavorite
+
+    }
+  }
 };
 </script>
 
