@@ -33,7 +33,7 @@ export default {
       type: String,
       required: true
     },
-    phoneNumbr: String,
+    phoneNumber: String,
     emailAddress: String,
     isFavorite: {
       type: Boolean,
