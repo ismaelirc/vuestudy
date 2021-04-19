@@ -13,6 +13,7 @@
         {{ emailAddress }}
       </li>
     </ul>
+    <button @click="deleteFriend">Delete</button>
   </li>
 </template>
 
@@ -42,18 +43,8 @@ export default {
     }
   },
   //emits:['toogle-favorite'],
-  emits:{
-    'toogle-favorite':function(id){
-      if(id){
-        return true;
-      }else{
-        
-        console.warn('Id is missing');
-        return false;
-
-      }
-    } //Dessa forma fica claro que esse componente emite um evento que deve ser tratado por uma função
-  },
+  emits:['delete','toogle-favorite'],
+     //Dessa forma fica claro que esse componente emite um evento que deve ser tratado por uma função,
   data() {
     return {
       detailsAreVisible: false
@@ -65,6 +56,9 @@ export default {
     },
     toggleFavorite(){
       this.$emit('toogle-favorite', this.id);
+    },
+    deleteFriend(){
+      this.$emit('delete', this.id);
     }
   }
 };

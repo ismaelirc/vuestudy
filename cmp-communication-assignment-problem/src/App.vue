@@ -1,22 +1,19 @@
 <template>
   <section>
     <header>
-      <h1>My Friends</h1>
+      <h1>User Active</h1>
     </header>
-    <new-friend @add-friend="saveFriend"></new-friend>
-    <ul>
-      <friend-contact v-for="friend in friends" 
-                      v-bind:key="friend.id"
-                      v-bind:id="friend.id"
-                      :name="friend.name" 
-                      :phone-number="friend.phone" 
-                      :email-address="friend.email"
-                      v-bind:is-favorite="friend.isFavorite"
-                      @toogle-favorite="toogleFavoriteStatus"
-                      @delete="deleteContact">
-                      
-      </friend-contact>
-    </ul>
+    <div>
+        <user-data @saveuser-data="saveData"></user-data>
+        <ul>
+            <active-user v-for="u in users"
+                v-bind:key="u.id"
+                v-bind:id="u.id"
+                :age="u.age"
+                :userName="u.name"
+            ></active-user>
+        </ul>
+    </div>
   </section>
 </template>
 
@@ -25,42 +22,21 @@
 export default {
   data() {
     return {
-      friends: [
-        {
-          id: "1",
-          name: "Manuel Lorenz",
-          phone: "0123 45678 90",
-          email: "manuel@localhost.com",
+        user:{
+            name:'',
+            age: ''
         },
-        {
-          id: "2",
-          name: "Julie Jones",
-          phone: "0987 654421 21",
-          email: "julie@localhost.com",
-        },
-      ],
+        users: [],
     };
   },methods:{
-    toogleFavoriteStatus(friendId){
-      const friendIdentifier = this.friends.find(friend => friend.id === friendId);
-
-      friendIdentifier.isFavorite = !friendIdentifier.isFavorite
-
-    },
-    saveFriend(name, phone, email){
-      const newFriend = {
-        id: new Date().toISOString(),
-        name: name,
-        phone: phone,
-        email: email,
-        isFavorite: false
+      saveData(age, name){
+        const newUser = {
+                id: new Date().toISOString(),
+                name: name,
+                age: +age
+        }
+        this.users.push(newUser);
       }
-      this.friends.push(newFriend);
-
-    },
-    deleteContact(friendId){
-      this.friends = this.friends.filter(friend => friend.id !== friendId)
-    }
   }
 };
 </script>
